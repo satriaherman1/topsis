@@ -38,12 +38,10 @@ export default function Step1() {
     };
 
     setCurrentC((c) => [...c, result]);
-    setName("");
-    setType("benefit");
-    setCWeight(0);
   };
 
   const onNext = () => {
+    console.log(currentC);
     dispatch({
       type: "CHANGE_CRITERIA",
       payload: currentC,

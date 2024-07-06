@@ -1,0 +1,57 @@
+import {
+  Box,
+  Heading,
+  Input,
+  Table,
+  TableContainer,
+  Tbody,
+  Td,
+  Th,
+  Thead,
+  Tr,
+} from "@chakra-ui/react";
+import { GlobalContext } from "@src/utils/context";
+import { useContext } from "react";
+
+export const NegativeIdealValue = () => {
+  const { state, dispatch }: any = useContext(GlobalContext);
+
+  return (
+    <Box my="40px">
+      <Heading as="h1" size="xl">
+        Nilai Ideal Negatif
+      </Heading>
+
+      <TableContainer mt="50px">
+        <Table variant="simple">
+          <Thead>
+            <Tr>
+              <Th>Tipe</Th>
+
+              {state.criteria.map(({ name }: any) => (
+                <Th>{name}</Th>
+              ))}
+            </Tr>
+          </Thead>
+
+          <Tbody>
+            <Tr>
+              <Td>1</Td>
+
+              {state.alternative[0].value.map((v: any, vIndex: number) => (
+                <Td key={vIndex}>
+                  <Input
+                    // width="90px"
+                    placeholder=" nilai"
+                    value={v.idealNegativeValue}
+                    readOnly
+                  />
+                </Td>
+              ))}
+            </Tr>
+          </Tbody>
+        </Table>
+      </TableContainer>
+    </Box>
+  );
+};

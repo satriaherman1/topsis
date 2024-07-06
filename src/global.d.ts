@@ -8,4 +8,7 @@ export type Kriteria = {
 export type Alternatif = {
   name: string;
   value: any;
+  rangeIdealPositive?: number;
+  rangeIdealNegative?: number;
+  preferences?: number;
 };
