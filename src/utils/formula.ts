@@ -5,15 +5,15 @@ export const dividerNormalizedMatrix = (
   alternatives: Alternatif[]
 ): Alternatif[] => {
   // Get all criterion names from the first alternative's value array
-  const criteriaNames = alternatives[0].value.map((v) => v.name);
+  const criteriaNames = alternatives[0].value.map((v: any) => v.name);
   const dividers: { [key: string]: number } = {};
 
   // Calculate the divider for each criterion
-  criteriaNames.forEach((name) => {
+  criteriaNames.forEach((name: string) => {
     let sumOfSquares = 0;
 
     alternatives.forEach((alt) => {
-      const criterion = alt.value.find((v) => v.name === name);
+      const criterion = alt.value.find((v: any) => v.name === name);
       if (criterion) {
         sumOfSquares += Math.pow(parseFloat(criterion.value), 2);
       }
@@ -25,7 +25,7 @@ export const dividerNormalizedMatrix = (
   // Add the divider to each value object
   const updatedAlternatives = alternatives.map((alt) => ({
     ...alt,
-    value: alt.value.map((v) => ({
+    value: alt.value.map((v: any) => ({
       ...v,
       divider: dividers[v.name],
     })),
@@ -38,7 +38,7 @@ export const dividerNormalizedMatrix = (
 export const getNormalizedValue = (alternatives: Alternatif[]) => {
   return alternatives.map((a) => ({
     ...a,
-    value: a.value.map((v) => ({
+    value: a.value.map((v: any) => ({
       ...v,
       normalizedValue: parseFloat(v.value) / (v.divider || 1),
     })),
@@ -51,7 +51,7 @@ export const getNormalizedWeightValue = (
 ): Alternatif[] => {
   return alternatives.map((a) => ({
     ...a,
-    value: a.value.map((v) => {
+    value: a.value.map((v: any) => {
       const normalizedValue =
         v.normalizedValue !== undefined ? v.normalizedValue : 0;
       const weight = parseFloat(v.weight) || 0;
@@ -65,6 +65,7 @@ export const getNormalizedWeightValue = (
 };
 
 // nilai solusi ideal positif
+// formula = jika type benefit maka cari nilai max, jika type cost maka cari nilai min
 export const getIdealPositiveValue = (
   alternatives: Alternatif[]
 ): Alternatif[] => {
@@ -73,18 +74,18 @@ export const getIdealPositiveValue = (
   }
 
   const criteriaNames = alternatives[0].value.map(
-    (criterion) => criterion.name
+    (criterion: any) => criterion.name
   );
 
   const idealValues: { [key: string]: number } = {};
 
-  criteriaNames.forEach((name) => {
+  criteriaNames.forEach((name: string) => {
     let maxBenefit = -Infinity;
     let minCost = Infinity;
     let type: "benefit" | "cost" = "benefit";
 
     alternatives.forEach((alternative) => {
-      const criterion = alternative.value.find((v) => v.name === name);
+      const criterion = alternative.value.find((v: any) => v.name === name);
       if (criterion) {
         type = criterion.type;
         const value = criterion.normalizedWeightValue ?? 0;
@@ -106,7 +107,7 @@ export const getIdealPositiveValue = (
 
   const updatedAlternatives = alternatives.map((alternative) => ({
     ...alternative,
-    value: alternative.value.map((criterion) => ({
+    value: alternative.value.map((criterion: any) => ({
       ...criterion,
       idealPositiveValue: idealValues[criterion.name],
     })),
@@ -114,7 +115,9 @@ export const getIdealPositiveValue = (
 
   return updatedAlternatives;
 };
+
 // nilai solusi ideal negatif
+// formula = jika type benefit maka cari nilai min, jika type cost maka cari nilai max
 export const getIdealNegativeValue = (
   alternatives: Alternatif[]
 ): Alternatif[] => {
@@ -123,18 +126,18 @@ export const getIdealNegativeValue = (
   }
 
   const criteriaNames = alternatives[0].value.map(
-    (criterion) => criterion.name
+    (criterion: any) => criterion.name
   );
 
   const idealValues: { [key: string]: number } = {};
 
-  criteriaNames.forEach((name) => {
+  criteriaNames.forEach((name: string) => {
     let minBenefit = Infinity;
     let maxCost = -Infinity;
     let type: "benefit" | "cost" = "benefit";
 
     alternatives.forEach((alternative) => {
-      const criterion = alternative.value.find((v) => v.name === name);
+      const criterion = alternative.value.find((v: any) => v.name === name);
       if (criterion) {
         type = criterion.type;
         const value = criterion.normalizedWeightValue ?? 0;
@@ -156,7 +159,7 @@ export const getIdealNegativeValue = (
 
   const updatedAlternatives = alternatives.map((alternative) => ({
     ...alternative,
-    value: alternative.value.map((criterion) => ({
+    value: alternative.value.map((criterion: any) => ({
       ...criterion,
       idealNegativeValue: idealValues[criterion.name],
     })),
@@ -168,7 +171,7 @@ export const getIdealNegativeValue = (
 export const getRangeIdealPositive = (alternative: Alternatif[]) => {
   const result = alternative.map((a) => {
     let total = 0;
-    a.value.map((v) => {
+    a.value.map((v: any) => {
       total += Math.pow(v.idealPositiveValue - v.normalizedWeightValue, 2);
     });
 
@@ -182,7 +185,7 @@ export const getRangeIdealPositive = (alternative: Alternatif[]) => {
 export const getRangeIdealNegative = (alternative: Alternatif[]) => {
   const result = alternative.map((a) => {
     let total = 0;
-    a.value.map((v) => {
+    a.value.map((v: any) => {
       total += Math.pow(v.idealNegativeValue - v.normalizedWeightValue, 2);
     });
 

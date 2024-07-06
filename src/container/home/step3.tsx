@@ -75,7 +75,7 @@ export default function Step3() {
               <Tr key={aIndex}>
                 <Td>{aIndex + 1}</Td>
                 <Td>{name}</Td>
-                {value.map((v: any, vIndex) => (
+                {value.map((v: any, vIndex: number) => (
                   <Td key={vIndex}>
                     <Input
                       width="90px"
