@@ -14,7 +14,7 @@ import { GlobalContext } from "@src/utils/context";
 import { useContext } from "react";
 
 export const RangePositiveIdeal = () => {
-  const { state, dispatch }: any = useContext(GlobalContext);
+  const { state }: any = useContext(GlobalContext);
 
   return (
     <Box my="40px">

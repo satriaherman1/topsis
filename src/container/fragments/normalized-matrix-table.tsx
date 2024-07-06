@@ -83,7 +83,7 @@ export const NormalizedMatrixTable = () => {
               <Td fontWeight={600}>Pembagi</Td>
               <Td></Td>
               {state.criteria.map(({ name }: any, index: number) => (
-                <Td fontWeight={600}>
+                <Td fontWeight={600} key={name}>
                   {state.alternative[0].value[index].divider}
                 </Td>
               ))}
